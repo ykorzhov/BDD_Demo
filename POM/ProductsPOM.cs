@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,23 @@ namespace POM
         private IWebElement AddJacketToCartButton => driver.FindElement(By.Id("add-to-cart-sauce-labs-fleece-jacket"));
         private IWebElement GoToCartButton => driver.FindElement(By.ClassName("shopping_cart_link"));
 
+        private IWebElement ProductsPaeTitle => driver.FindElement(By.ClassName("title"));
+
+        public bool FindProductsPageTitle()
+        {
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            try
+            {
+                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.ClassName("title")));
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
+
+        }
 
         public void AddBackpackToCart()
         {

@@ -15,7 +15,18 @@ namespace POM
         {
             this.driver = driver;
         }
+        private IWebElement ProductTitle => driver.FindElement(By.ClassName("inventory_item_name"));
         private IWebElement FinishButton => driver.FindElement(By.Id("finish"));
+        private IWebElement CancelButton => driver.FindElement(By.Id("cancel"));
+        public string GetText()
+        {
+            return ProductTitle.Text;
+        }
+
+        public void ClickCancelButton()
+        {
+            CancelButton.Click();
+        }
 
         public CheckoutCompletePOM ClickFinishButton()
         {
