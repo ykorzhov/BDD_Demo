@@ -21,7 +21,7 @@ namespace BDD.Utils
             return driver;
         }
 
-        //ця реалізація не є Thread save 
+        //ця реалізація не є Thread safe 
 
     }
 }
