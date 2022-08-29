@@ -1,4 +1,5 @@
-﻿using BDD.Utils;
+﻿//using BDD.Utils;
+using BoDi;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using TechTalk.SpecFlow;
@@ -8,19 +9,53 @@ namespace BDD.StepDefinitions
     [Binding]
     public sealed class Hooks
     {
-        // For additional details on SpecFlow hooks see http://go.specflow.org/doc-hooks
-        WebDriver driver = WebdriverUtils.getInstance();
+        private readonly IObjectContainer container;
+
+        public Hooks(IObjectContainer container)
+        {
+            this.container = container;
+        }
 
         [BeforeScenario]
-        public void BeforeScenarioWithTag()
+        public void CreateWebDriver()
         {
+            ChromeDriver driver = new ChromeDriver();
+            container.RegisterInstanceAs<IWebDriver>(driver);
             driver.Url = "https://www.saucedemo.com/";
         }
+        //// For additional details on SpecFlow hooks see http://go.specflow.org/doc-hooks
+        ////WebDriver driver = WebdriverUtils.getInstance();
+        //private readonly WebDriverSupport webDriver;
+        //public Hooks(WebDriverSupport webDriver)
+        //{
+        //    this.webDriver = webDriver;
+        //}
+
+        //[BeforeScenario]
+        //public void InitializeWebDriver()
+        //{
+        //    var driver = new ChromeDriver();
+        //    webDriver.objectContainer.RegisterInstanceAs<IWebDriver>(driver);
+        //    driver.Url = "https://www.saucedemo.com/";
+        //}
 
         [AfterScenario]
-        public void AfterScenario()
+        public void DestroyWebDriver()
         {
-            driver.Close();
+            var driver = container.Resolve<IWebDriver>();
+
+            if (driver != null)
+            {
+                driver.Quit();
+                driver.Dispose();
+            }
         }
+        //public void AfterScenario()
+        //{
+        //    driver.Close();
+        //}
+
+        //HW: implement Context Injection for wevdriver 
+        // + read about plugins https://docs.specflow.org/projects/specflow/en/latest/Extend/Plugins.html
     }
 }

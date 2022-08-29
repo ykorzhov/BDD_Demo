@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using POM;
 using OpenQA.Selenium;
-using BDD.Utils;
+//using BDD.Utils;
 
 namespace BDD.StepDefinitions
 {
@@ -14,9 +14,18 @@ namespace BDD.StepDefinitions
     [Binding]
     public sealed class LoginStepDefinition
     {
+        private readonly IWebDriver driver;
+        private readonly LoginPOM loginPage;
 
-        static WebDriver driver = WebdriverUtils.getInstance();
-        LoginPOM loginPage = new LoginPOM(driver);
+        public LoginStepDefinition(IWebDriver driver)
+        {
+            this.driver = driver;
+            this.loginPage = new LoginPOM(driver);
+
+        }
+
+        //static WebDriver driver = WebdriverUtils.getInstance();
+        //LoginPOM loginPage = new LoginPOM(driver);
 
         [Given("user enters username (.*)")]
         public void GivenUserEntersUsername(string username)

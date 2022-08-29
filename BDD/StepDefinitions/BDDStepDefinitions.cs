@@ -1,4 +1,5 @@
-using BDD.Utils;
+//using BDD.Utils;
+using BoDi;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -10,13 +11,30 @@ namespace BDD.StepDefinitions
     public sealed class BDDStepDefinitions
     {
 
-        static WebDriver driver = WebdriverUtils.getInstance();
+        private readonly IWebDriver driver;
+        private readonly ProductsPOM productsPage;
+        private readonly CartPOM cartPage;
+        private readonly EnterInfoPOM infoPage;
+        private readonly OverviewPOM overviewPage;
+        private readonly CheckoutCompletePOM checkoutPage;
+
+        public BDDStepDefinitions(IObjectContainer container)
+        {
+            this.driver = container.Resolve<IWebDriver>();
+            this.productsPage = new ProductsPOM(driver);
+            this.cartPage = new CartPOM(driver);
+            this.overviewPage = new OverviewPOM(driver);
+            this.infoPage = new EnterInfoPOM(driver);
+            this.checkoutPage = new CheckoutCompletePOM(driver);
+        }
+
+        //static WebDriver driver = WebdriverUtils.getInstance();
         //LoginPOM loginPage = new LoginPOM(driver);
-        ProductsPOM productsPage = new ProductsPOM(driver);
-        CartPOM cartPage = new CartPOM(driver);
-        EnterInfoPOM infoPage = new EnterInfoPOM(driver);
-        OverviewPOM overviewPage = new OverviewPOM(driver);
-        CheckoutCompletePOM checkoutPage = new CheckoutCompletePOM(driver);
+        //ProductsPOM productsPage = new ProductsPOM(Driver);
+        //CartPOM cartPage = new CartPOM(driver);
+        //EnterInfoPOM infoPage = new EnterInfoPOM(driver);
+        //OverviewPOM overviewPage = new OverviewPOM(driver);
+        //CheckoutCompletePOM checkoutPage = new CheckoutCompletePOM(driver);
 
         private readonly TestData testData;
         public BDDStepDefinitions(TestData testData)
@@ -48,16 +66,7 @@ namespace BDD.StepDefinitions
             }
         }
 
-        //[When("user adds light to cart")]
-        //public void WhenUserAddsLightToCart()
-        //{
-        //    productsPage.AddLightToCart();
-        //}
-        //[When("user adds jacket to cart")]
-        //public void WhenUserAddsJacketToCart()
-        //{
-        //    productsPage.AddJacketToCart();
-        //}
+
         [When("user goes to cart")]
         public void WhenUserGoesToCart()
         {
