@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using POM;
 using OpenQA.Selenium;
+using BoDi;
 //using BDD.Utils;
 
 namespace BDD.StepDefinitions
@@ -17,9 +18,10 @@ namespace BDD.StepDefinitions
         private readonly IWebDriver driver;
         private readonly LoginPOM loginPage;
 
-        public LoginStepDefinition(IWebDriver driver)
+        public LoginStepDefinition(IObjectContainer container)
         {
-            this.driver = driver;
+            //this.driver = driver;
+            this.driver = container.Resolve<IWebDriver>("driver");
             this.loginPage = new LoginPOM(driver);
 
         }

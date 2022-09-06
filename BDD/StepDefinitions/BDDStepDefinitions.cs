@@ -18,14 +18,17 @@ namespace BDD.StepDefinitions
         private readonly OverviewPOM overviewPage;
         private readonly CheckoutCompletePOM checkoutPage;
 
-        public BDDStepDefinitions(IObjectContainer container)
+        private readonly TestData testData;
+
+        public BDDStepDefinitions(IObjectContainer container, TestData testData)
         {
-            this.driver = container.Resolve<IWebDriver>();
+            this.driver = container.Resolve<IWebDriver>("driver");
             this.productsPage = new ProductsPOM(driver);
             this.cartPage = new CartPOM(driver);
             this.overviewPage = new OverviewPOM(driver);
             this.infoPage = new EnterInfoPOM(driver);
             this.checkoutPage = new CheckoutCompletePOM(driver);
+            this.testData = testData;
         }
 
         //static WebDriver driver = WebdriverUtils.getInstance();
@@ -36,18 +39,17 @@ namespace BDD.StepDefinitions
         //OverviewPOM overviewPage = new OverviewPOM(driver);
         //CheckoutCompletePOM checkoutPage = new CheckoutCompletePOM(driver);
 
-        private readonly TestData testData;
-        public BDDStepDefinitions(TestData testData)
-        {
-            this.testData = testData;
-        }
+        //public BDDStepDefinitions(TestData testData)
+        //{
+        //    this.testData = testData;
+        //}
 
         [When("user adds product (.*)")]
         public void WhenUserAddsProduct(string productTitle)
         {
             testData.ProductTitle = productTitle;
             switch (productTitle)
-                {
+            {
                 case "Backpack":
                     productsPage.AddBackpackToCart();
                     break;
