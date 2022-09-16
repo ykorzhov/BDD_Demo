@@ -15,12 +15,16 @@ namespace BDD.StepDefinitions
         {
             this.container = container;
         }
+        IWebDriver driver;
 
         [BeforeScenario]
         public void CreateWebDriver()
         {
             ChromeDriver driver = new ChromeDriver();
-            container.RegisterInstanceAs<IWebDriver>(driver, "driver");
+            container.RegisterInstanceAs<IWebDriver>(driver, "webdriver");
+
+            //container.RegisterTypeAs<ChromeDriver, IWebDriver>("webdriver");
+
             driver.Url = "https://www.saucedemo.com/";
         }
         //// For additional details on SpecFlow hooks see http://go.specflow.org/doc-hooks
@@ -42,7 +46,7 @@ namespace BDD.StepDefinitions
         [AfterScenario]
         public void DestroyWebDriver()
         {
-            var driver = container.Resolve<IWebDriver>("driver");
+            driver = container.Resolve<IWebDriver>("webdriver");
 
             if (driver != null)
             {

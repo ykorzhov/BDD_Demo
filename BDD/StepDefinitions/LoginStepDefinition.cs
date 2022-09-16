@@ -21,7 +21,7 @@ namespace BDD.StepDefinitions
         public LoginStepDefinition(IObjectContainer container)
         {
             //this.driver = driver;
-            this.driver = container.Resolve<IWebDriver>("driver");
+            this.driver = container.Resolve<IWebDriver>("webdriver");
             this.loginPage = new LoginPOM(driver);
 
         }

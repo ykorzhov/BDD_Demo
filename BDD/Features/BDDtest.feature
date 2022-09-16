@@ -6,7 +6,7 @@ Scenario: E2E_CompleteOrder
 	Given user enters username standard_user
 	And user enters password secret_sauce
 	When user clicks login button
-	And user adds product Light
+	When user adds product Light
 	And user goes to cart
 	And user clicks Checkout button
 	And user enters first name Yana

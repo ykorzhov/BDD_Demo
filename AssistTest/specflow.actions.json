@@ -4,9 +4,9 @@
     "arguments": [
       //"--start-maximized",
       //"--incognito"
-    ]
+    ],
     //"capabilities": {
     //  "incognito": "true"
-    }
+    "defaultTimeout": 1
   }
 }

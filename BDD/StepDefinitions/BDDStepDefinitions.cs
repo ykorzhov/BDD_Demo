@@ -22,7 +22,7 @@ namespace BDD.StepDefinitions
 
         public BDDStepDefinitions(IObjectContainer container, TestData testData)
         {
-            this.driver = container.Resolve<IWebDriver>("driver");
+            this.driver = container.Resolve<IWebDriver>("webdriver");
             this.productsPage = new ProductsPOM(driver);
             this.cartPage = new CartPOM(driver);
             this.overviewPage = new OverviewPOM(driver);
