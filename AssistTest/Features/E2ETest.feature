@@ -2,7 +2,7 @@
 Feature: SauceDemo
 
 @tag1 @E2E
-Scenario: E2E_CompleteOrder
+Scenario: E2E_CompleteOrder_Actions
 	Given user enters username standard_user
 	And user enters password secret_sauce
 	When user clicks login button
