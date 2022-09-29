@@ -1,7 +1,7 @@
 ﻿@MyFeatureTag
 Feature: SauceDemo
 
-@tag1 @E2E
+@tag3 @E2E
 Scenario: E2E_CompleteOrder_Actions
 	Given user enters username standard_user
 	And user enters password secret_sauce
